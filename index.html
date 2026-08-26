@@ -92,6 +92,138 @@
       color: #c6d0f5;
       opacity: 0.7;
     }
+
+
+    /* =========================================
+       Liquid Glass 卡片
+       ========================================= */
+
+    .liquid-glass {
+      position: absolute;
+      left: 50%;
+      bottom: 6%;
+      transform: translateX(-50%);
+
+      width: 520px;
+      min-height: 72px;
+      padding: 0 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-sizing: border-box;
+
+      border-radius: 26px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.24) 0%,
+          rgba(255, 255, 255, 0.10) 35%,
+          rgba(255, 255, 255, 0.06) 100%
+        );
+
+      border: 1px solid rgba(255, 255, 255, 0.38);
+
+      backdrop-filter:
+        blur(20px)
+        saturate(170%)
+        brightness(1.08);
+
+      -webkit-backdrop-filter:
+        blur(20px)
+        saturate(170%)
+        brightness(1.08);
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.22),
+        0 2px 8px rgba(0, 0, 0, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.55),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.12);
+
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* 玻璃折射 */
+    .glass-refraction {
+      position: absolute;
+      inset: -15px;
+
+      background:
+        radial-gradient(
+          circle at 20% 15%,
+          rgba(255, 255, 255, 0.20),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 80% 85%,
+          rgba(255, 255, 255, 0.10),
+          transparent 40%
+        );
+
+      filter: url("#liquid-refraction");
+
+      opacity: 0.55;
+
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 玻璃上方高光 */
+    .glass-highlight {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 0;
+
+      height: 45%;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.28),
+          rgba(255, 255, 255, 0)
+        );
+
+      border-radius: 0 0 50% 50%;
+
+      filter: blur(8px);
+
+      opacity: 0.7;
+
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 卡片文字 */
+    .glass-text {
+      position: relative;
+      z-index: 2;
+
+      color: #ffffff;
+
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      line-height: 1.5;
+
+      text-align: center;
+
+      text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.35),
+        0 0 8px rgba(255, 255, 255, 0.12);
+    }
+
+    /* 隱藏 SVG */
+    .glass-svg {
+      position: absolute;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
   </style>
 </head>
 
@@ -122,6 +254,44 @@
       autofocus
     >
   </div>
+
+
+  <!-- Liquid Glass 卡片 -->
+
+  <div class="liquid-glass">
+    <div class="glass-refraction"></div>
+    <div class="glass-highlight"></div>
+
+    <div class="glass-text">
+      可名者明名，不可名者不名，業已者業已
+    </div>
+  </div>
+
+
+  <!-- Liquid Glass SVG 折射濾鏡 -->
+
+  <svg class="glass-svg" aria-hidden="true">
+    <filter id="liquid-refraction">
+
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.012 0.025"
+        numOctaves="2"
+        seed="7"
+        result="noise"
+      />
+
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="18"
+        xChannelSelector="R"
+        yChannelSelector="G"
+      />
+
+    </filter>
+  </svg>
+
 
   <script>
     const searchBox = document.getElementById("search");
