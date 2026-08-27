@@ -1,0 +1,69 @@
+```yaml
+name: Update Gushan Weather
+
+on:
+  schedule:
+    # GitHub Actions 使用 UTC
+    # 台灣時間：02:00、08:00、14:00、20:00
+    - cron: "0 */6 * * *"
+
+  # 允許手動執行
+  workflow_dispatch:
+
+jobs:
+  update-weather:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get weather data from Open-Meteo
+        run: |
+          curl -fsSL \
+            "https://api.open-meteo.com/v1/forecast?latitude=22.65&longitude=120.28&current=wind_direction_10m,surface_pressure&timezone=Asia%2FTaipei" \
+            -o weather-api.json
+
+      - name: Create weather.json
+        run: |
+          python3 - <<'PY'
+          import json
+
+          with open("weather-api.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+
+          output = {
+              "location": "高雄市鼓山區",
+              "latitude": 22.65,
+              "longitude": 120.28,
+              "timezone": data["timezone"],
+              "time": data["current"]["time"],
+              "wind_direction_10m": data["current"]["wind_direction_10m"],
+              "surface_pressure": data["current"]["surface_pressure"]
+          }
+
+          with open("weather.json", "w", encoding="utf-8") as f:
+              json.dump(output, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+          PY
+
+          rm weather-api.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add weather.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update Gushan weather data"
+          git push
+```
