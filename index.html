@@ -749,6 +749,14 @@
         const pressure =
           Number(weatherData.surface_pressure);
 
+        const pressureAngle =
+          Math.max(0, Math.min(180, (pressure - 980) * 3));
+
+        document.querySelector(".pressure-pointer").style.transform =
+          "translate(-50%, -100%) rotate(" +
+          pressureAngle +
+          "deg)";
+
 
         document.getElementById("pressure-value").textContent =
           pressure.toFixed(1) +
