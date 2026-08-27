@@ -750,7 +750,7 @@
           Number(weatherData.surface_pressure);
 
         const pressureAngle =
-          -60 + ((pressure - 950) / 100) * 300;
+          -90 + ((pressure - 950) / 100) * 180;
 
         document.querySelector(".pressure-pointer").style.transform =
           "translate(-50%, -100%) rotate(" +
