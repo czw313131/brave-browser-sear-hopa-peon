@@ -112,7 +112,7 @@
         height: auto !important;
       }
 
-      /* 搜尋框：寬度使用 viewport，置中並略往下 */
+      /* 搜尋框 */
       .search-box {
         position: absolute !important;
         left: 50% !important;
@@ -161,6 +161,7 @@
       }
     }
 
+
     /* ================================
        天氣卡片
        ================================ */
@@ -168,7 +169,23 @@
     .weather-card {
       position: absolute;
       left: 50%;
-      top: calc(50% + 74px);
+
+      /*
+        搜尋框：
+        中心 = 50%
+        高度 = 50px
+
+        搜尋框下緣 = 50% + 25px
+
+        卡片高度 = 190px
+
+        讓：
+        搜尋框下緣 → 卡片上緣
+        =
+        卡片下緣 → 頁面下緣
+      */
+      top: calc(50% + 25px + ((50% - 25px - 190px) / 2));
+
       transform: translateX(-50%);
 
       width: 500px;
@@ -176,7 +193,10 @@
 
       box-sizing: border-box;
 
-      background-color: rgba(65, 69, 89, 0.88);
+      /* 稍微增加透明度 */
+      background-color: rgba(65, 69, 89, 0.80);
+
+      /* 輕微背景模糊 */
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
 
@@ -191,8 +211,9 @@
     /* 地點 */
     .weather-location {
       position: absolute;
+
       top: 14px;
-      right: 18px;
+      left: 18px;
 
       font-size: 14px;
       line-height: 20px;
@@ -248,9 +269,10 @@
       white-space: nowrap;
     }
 
-    /* ----------------
+
+    /* ================================
        Material 2 風格指南針
-       ---------------- */
+       ================================ */
 
     .compass {
       position: relative;
@@ -335,7 +357,7 @@
       height: 23px;
 
       transform-origin: 50% 100%;
-      transform: translate(-50%, -100%) rotate(67deg);
+      transform: translate(-50%, -100%) rotate(0deg);
 
       background-color: #a6d189;
 
@@ -377,7 +399,11 @@
       border-radius: 50%;
     }
 
-    /* 氣壓圖標：純 CSS / Material 2 風格 */
+
+    /* ================================
+       氣壓圖標
+       ================================ */
+
     .pressure-icon {
       position: relative;
 
@@ -457,22 +483,38 @@
       border-radius: 50%;
     }
 
-    /* 手機版天氣卡片 */
+
+    /* ================================
+       手機版天氣卡片
+       ================================ */
+
     @media (max-width: 768px) {
+
       .weather-card {
         width: calc(100% - 32px);
         max-width: 540px;
 
         height: 180px;
 
-        top: calc(52% + 76px);
+        /*
+          手機搜尋框：
+          中心 = 52%
+          高度 = 56px
+
+          搜尋框下緣 = 52% + 28px
+
+          卡片高度 = 180px
+
+          兩側距離保持完全相等
+        */
+        top: calc(52% + 28px + ((48% - 28px - 180px) / 2));
 
         border-radius: 12px;
       }
 
       .weather-location {
         top: 12px;
-        right: 16px;
+        left: 16px;
 
         font-size: 14px;
       }
@@ -529,12 +571,16 @@
     >
   </div>
 
+
   <!-- 天氣卡片 -->
   <div class="weather-card">
 
-    <!-- 右上角地點 -->
-    <div class="weather-location" id="weather-location">
-      高雄市鼓山區
+    <!-- 左上角地點 -->
+    <div
+      class="weather-location"
+      id="weather-location"
+    >
+      載入中…
     </div>
 
     <div class="weather-data">
@@ -545,6 +591,7 @@
         <div class="weather-icon">
 
           <div class="compass">
+
             <span class="compass-n">N</span>
             <span class="compass-e">E</span>
             <span class="compass-s">S</span>
@@ -556,15 +603,20 @@
             ></div>
 
             <div class="compass-center"></div>
+
           </div>
 
         </div>
 
-        <div class="weather-value" id="wind-value">
-          67° · ENE
+        <div
+          class="weather-value"
+          id="wind-value"
+        >
+          載入中…
         </div>
 
       </div>
+
 
       <!-- 氣壓 -->
       <div class="weather-item">
@@ -572,20 +624,26 @@
         <div class="weather-icon">
 
           <div class="pressure-icon">
+
             <div class="pressure-pointer"></div>
             <div class="pressure-center"></div>
+
           </div>
 
         </div>
 
-        <div class="weather-value" id="pressure-value">
-          1002.9 hPa
+        <div
+          class="weather-value"
+          id="pressure-value"
+        >
+          載入中…
         </div>
 
       </div>
 
     </div>
   </div>
+
 
   <script>
     const searchBox = document.getElementById("search");
@@ -610,64 +668,99 @@
        天氣資料
        ================================ */
 
-    const weatherData = {
-      location: "高雄市鼓山區",
-      latitude: 22.65,
-      longitude: 120.28,
-      timezone: "Asia/Taipei",
-      time: "2026-08-28T00:30",
-      wind_direction_10m: 67,
-      surface_pressure: 1002.9
-    };
+    fetch("weather.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("無法取得 weather.json");
+        }
+
+        return response.json();
+      })
+
+      .then(weatherData => {
+
+        /* 地點 */
+        document.getElementById("weather-location").textContent =
+          weatherData.location;
 
 
-    /* 依照風向角度轉換成方位 */
-    function getWindDirection(degrees) {
-      const directions = [
-        "N",
-        "NNE",
-        "NE",
-        "ENE",
-        "E",
-        "ESE",
-        "SE",
-        "SSE",
-        "S",
-        "SSW",
-        "SW",
-        "WSW",
-        "W",
-        "WNW",
-        "NW",
-        "NNW"
-      ];
+        /* ----------------
+           風向
+           ---------------- */
 
-      const index =
-        Math.round(degrees / 22.5) % 16;
-
-      return directions[index];
-    }
+        const windDirection =
+          Number(weatherData.wind_direction_10m);
 
 
-    /* 將 JSON 資料放進卡片 */
-    document.getElementById("weather-location").textContent =
-      weatherData.location;
+        const directions = [
+          "N",
+          "NNE",
+          "NE",
+          "ENE",
+          "E",
+          "ESE",
+          "SE",
+          "SSE",
+          "S",
+          "SSW",
+          "SW",
+          "WSW",
+          "W",
+          "WNW",
+          "NW",
+          "NNW"
+        ];
 
-    document.getElementById("wind-value").textContent =
-      weatherData.wind_direction_10m +
-      "° · " +
-      getWindDirection(weatherData.wind_direction_10m);
 
-    document.getElementById("pressure-value").textContent =
-      weatherData.surface_pressure.toFixed(1) +
-      " hPa";
+        const directionIndex =
+          Math.round(windDirection / 22.5) % 16;
 
 
-    /* 讓指南針指針按照實際風向旋轉 */
-    document.getElementById("compass-pointer").style.transform =
-      "translate(-50%, -100%) rotate(" +
-      weatherData.wind_direction_10m +
-      "deg)";
+        const directionName =
+          directions[directionIndex];
+
+
+        document.getElementById("wind-value").textContent =
+          windDirection +
+          "° · " +
+          directionName;
+
+
+        /* 指南針指針 */
+        document.getElementById("compass-pointer").style.transform =
+          "translate(-50%, -100%) rotate(" +
+          windDirection +
+          "deg)";
+
+
+        /* ----------------
+           氣壓
+           ---------------- */
+
+        const pressure =
+          Number(weatherData.surface_pressure);
+
+
+        document.getElementById("pressure-value").textContent =
+          pressure.toFixed(1) +
+          " hPa";
+
+      })
+
+      .catch(error => {
+
+        console.error(error);
+
+        document.getElementById("weather-location").textContent =
+          "天氣資料載入失敗";
+
+        document.getElementById("wind-value").textContent =
+          "—";
+
+        document.getElementById("pressure-value").textContent =
+          "—";
+
+      });
   </script>
 
 </body>
