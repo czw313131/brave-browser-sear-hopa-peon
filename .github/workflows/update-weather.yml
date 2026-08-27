@@ -1,4 +1,3 @@
-```yaml
 name: Update Gushan Weather
 
 on:
@@ -66,4 +65,3 @@ jobs:
 
           git commit -m "Update Gushan weather data"
           git push
-```
