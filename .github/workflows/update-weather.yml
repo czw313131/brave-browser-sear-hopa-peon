@@ -3,7 +3,7 @@ name: Update Gushan Weather
 on:
   schedule:
     # GitHub Actions 使用 UTC
-    - cron: "0 */3 * * *"
+    - cron: "13 */3 * * *"
 
   # 允許手動執行
   workflow_dispatch:
