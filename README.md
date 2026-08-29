@@ -2,6 +2,8 @@
 
 一個為 Brave 瀏覽器客製化的搜尋分頁，整合 Startpage 搜尋引擎與即時天氣資訊。
 
+![gallery](https://ibb.co/pj18K8nH)
+
 ## 功能特色
 
 ### 🔍 搜尋框
