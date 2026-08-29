@@ -2,7 +2,7 @@
 
 一個為 Brave 瀏覽器客製化的搜尋分頁，整合 Startpage 搜尋引擎與即時天氣資訊。
 
-![gallery]([https://ibb.co/pj18K8nH](https://i.meee.com.tw/OGpGnor.webp))
+![gallery](https://ibb.co/pj18K8nH](https://i.meee.com.tw/OGpGnor.webp)
 
 ## 功能特色
 
