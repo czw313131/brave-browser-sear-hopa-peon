@@ -34,7 +34,7 @@ jobs:
               data = json.load(f)
 
           output = {
-              "location": "高雄市鼓山區",
+              "location": "Gushan District, Kaohsiung City",
               "latitude": 22.65,
               "longitude": 120.28,
               "timezone": data["timezone"],
