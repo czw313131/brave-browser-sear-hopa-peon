@@ -34,7 +34,6 @@
       user-select: none;
     }
 
-    /* Logo - 位置保持不變 */
     .foreground {
       position: absolute;
       left: 50%;
@@ -44,7 +43,6 @@
       height: auto;
     }
 
-    /* 搜尋框 - 位置保持不變 (高度 50px，底部在 50% + 25px) */
     .search-box {
       position: absolute;
       left: 50%;
@@ -58,6 +56,7 @@
       border: 2px solid var(--color-accent);
       border-radius: 16px;
       overflow: hidden;
+      z-index: 2;
     }
 
     .search-icon {
@@ -91,34 +90,21 @@
       opacity: 0.7;
     }
 
-    /* 捷徑區塊 - 位於搜尋框與天氣卡片之間 */
+    /* 捷徑區塊 */
     .shortcuts-container {
       position: absolute;
       left: 50%;
-      top: calc(50% + 49px);
+      top: calc(50% + 70px);
       transform: translateX(-50%);
       width: 500px;
       display: flex;
-      justify-content: space-around;
-      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .shortcut-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: var(--color-text);
-      transition: transform 0.2s ease;
-    }
-
-    .shortcut-item:hover {
-      transform: translateY(-3px);
-    }
-
-    .shortcut-icon-wrapper {
-      width: 60px;
-      height: 60px;
+    .shortcut-card {
+      flex: 1;
+      height: 70px;
       background-color: var(--color-bg-card);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
@@ -127,30 +113,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
       overflow: hidden;
     }
 
-    .shortcut-icon-wrapper img {
-      width: 36px;
-      height: 36px;
+    .shortcut-card:hover {
+      transform: scale(1.06);
+    }
+
+    .shortcut-icon {
+      width: 40px;
+      height: 40px;
       object-fit: contain;
     }
 
-    .shortcut-label {
-      margin-top: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    }
-
-    /* 天氣卡片 - 位置順延下移 */
+    /* 天氣卡片 - 位置下移以保持等間距 */
     .weather-card {
       position: absolute;
       left: 50%;
-      top: calc(50% + 161px);
+      top: calc(50% + 175px);
       transform: translateX(-50%);
       width: 500px;
-      height: 190px;
+      height: 170px;
       background-color: var(--color-bg-card);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
@@ -189,12 +174,12 @@
     }
 
     .weather-icon {
-      width: 72px;
-      height: 72px;
+      width: 64px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .weather-value {
@@ -206,8 +191,8 @@
 
     .compass, .pressure-icon {
       position: relative;
-      width: 64px;
-      height: 64px;
+      width: 58px;
+      height: 58px;
       border: 2px solid var(--color-accent);
       border-radius: 50%;
     }
@@ -236,7 +221,7 @@
     }
 
     .compass-pointer {
-      height: 23px;
+      height: 20px;
     }
 
     .compass-pointer::before {
@@ -264,16 +249,16 @@
     .pressure-icon::before {
       content: "";
       position: absolute;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      height: 30px;
+      left: 9px;
+      right: 9px;
+      bottom: 9px;
+      height: 26px;
       border-top: 2px solid var(--color-accent);
       border-radius: 50%;
     }
 
     .pressure-pointer {
-      height: 20px;
+      height: 18px;
     }
 
     .pressure-pointer::before {
@@ -287,7 +272,6 @@
       border-bottom: 7px solid var(--color-accent);
     }
 
-    /* 手機版響應式樣式 */
     @media (max-width: 768px) {
       body {
         overflow: auto;
@@ -307,11 +291,11 @@
       .search-box {
         position: absolute !important;
         left: 50% !important;
-        top: 45% !important;
+        top: 48% !important;
         transform: translate(-50%, -50%) !important;
         width: calc(100% - 32px) !important;
         max-width: 540px !important;
-        height: 56px !important;
+        height: 54px !important;
         border-radius: 12px !important;
         padding-right: 12px;
       }
@@ -349,16 +333,16 @@
       .shortcuts-container {
         width: calc(100% - 32px);
         max-width: 540px;
-        top: calc(45% + 48px);
+        top: calc(48% + 50px);
+        gap: 8px;
       }
 
-      .shortcut-icon-wrapper {
-        width: 52px;
-        height: 52px;
+      .shortcut-card {
+        height: 56px;
         border-radius: 12px;
       }
 
-      .shortcut-icon-wrapper img {
+      .shortcut-icon {
         width: 30px;
         height: 30px;
       }
@@ -366,15 +350,15 @@
       .weather-card {
         width: calc(100% - 32px);
         max-width: 540px;
-        height: 180px;
-        top: calc(45% + 154px);
+        height: 160px;
+        top: calc(48% + 130px);
         border-radius: 12px;
       }
 
       .weather-location {
-        top: 12px;
-        left: 16px;
-        font-size: 17px;
+        top: 10px;
+        left: 14px;
+        font-size: 15px;
       }
 
       .weather-data {
@@ -383,18 +367,18 @@
       }
 
       .weather-icon {
-        width: 64px;
-        height: 64px;
-        margin-bottom: 7px;
+        width: 54px;
+        height: 54px;
+        margin-bottom: 4px;
       }
 
       .compass, .pressure-icon {
-        width: 58px;
-        height: 58px;
+        width: 50px;
+        height: 50px;
       }
 
       .weather-value {
-        font-size: 15px;
+        font-size: 14px;
       }
     }
   </style>
@@ -409,41 +393,22 @@
     <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus>
   </div>
 
-  <!-- 寫死的 5 個捷徑 -->
-  <div class="shortcuts-container no-select">
-    <a href="https://www.youtube.com" class="shortcut-item">
-      <div class="shortcut-icon-wrapper">
-        <img src="YT.webp" alt="YT" oncontextmenu="return false;">
-      </div>
-      <span class="shortcut-label">YT</span>
+  <!-- 捷徑區域 -->
+  <div class="shortcuts-container">
+    <a href="https://www.youtube.com" class="shortcut-card" title="YouTube">
+      <img src="YT.webp" alt="YouTube" class="shortcut-icon no-select" oncontextmenu="return false;">
     </a>
-
-    <a href="https://www.instagram.com" class="shortcut-item">
-      <div class="shortcut-icon-wrapper">
-        <img src="IG.webp" alt="IG" oncontextmenu="return false;">
-      </div>
-      <span class="shortcut-label">IG</span>
+    <a href="https://www.instagram.com" class="shortcut-card" title="Instagram">
+      <img src="IG.webp" alt="Instagram" class="shortcut-icon no-select" oncontextmenu="return false;">
     </a>
-
-    <a href="https://www.threads.com" class="shortcut-item">
-      <div class="shortcut-icon-wrapper">
-        <img src="THREADS.webp" alt="脆" oncontextmenu="return false;">
-      </div>
-      <span class="shortcut-label">脆</span>
+    <a href="https://www.threads.com" class="shortcut-card" title="Threads">
+      <img src="THREADS.webp" alt="Threads" class="shortcut-icon no-select" oncontextmenu="return false;">
     </a>
-
-    <a href="https://x.com/home" class="shortcut-item">
-      <div class="shortcut-icon-wrapper">
-        <img src="X.webp" alt="X" oncontextmenu="return false;">
-      </div>
-      <span class="shortcut-label">X</span>
+    <a href="https://x.com/home" class="shortcut-card" title="X">
+      <img src="X.webp" alt="X" class="shortcut-icon no-select" oncontextmenu="return false;">
     </a>
-
-    <a href="https://discord.com/channels/@me" class="shortcut-item">
-      <div class="shortcut-icon-wrapper">
-        <img src="DC.webp" alt="DC" oncontextmenu="return false;">
-      </div>
-      <span class="shortcut-label">DC</span>
+    <a href="https://discord.com/channels/@me" class="shortcut-card" title="Discord">
+      <img src="DC.webp" alt="Discord" class="shortcut-icon no-select" oncontextmenu="return false;">
     </a>
   </div>
 
