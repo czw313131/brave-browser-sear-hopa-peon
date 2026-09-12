@@ -8,10 +8,14 @@
 
   <style>
     :root {
-      --clr-border: #f2d5cf;
-      --clr-text: #c6d0f5;
-      --clr-bg: #414559;
-      --clr-bg-rgb: 65, 69, 89;
+      --color-bg-card: rgba(65, 69, 89, 0.67);
+      --color-box: #414559;
+      --color-accent: #f2d5cf;
+      --color-text: #c6d0f5;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
 
     html, body {
@@ -25,13 +29,16 @@
       overflow: hidden;
     }
 
+    .no-select {
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
     .foreground {
       position: absolute;
       left: 50%;
       top: 33.33%;
       transform: translate(-50%, -50%);
-      -webkit-user-drag: none;
-      user-select: none;
       width: 15%;
       height: auto;
     }
@@ -45,10 +52,9 @@
       height: 50px;
       display: flex;
       align-items: center;
-      background-color: var(--clr-bg);
-      border: 2px solid var(--clr-border);
+      background-color: var(--color-box);
+      border: 2px solid var(--color-accent);
       border-radius: 16px;
-      box-sizing: border-box;
       overflow: hidden;
     }
 
@@ -56,8 +62,6 @@
       width: 28px;
       height: 28px;
       object-fit: contain;
-      -webkit-user-drag: none;
-      user-select: none;
       margin: 0 14px;
       flex-shrink: 0;
     }
@@ -65,7 +69,7 @@
     .divider {
       width: 2px;
       height: 28px;
-      background-color: var(--clr-border);
+      background-color: var(--color-accent);
       flex-shrink: 0;
     }
 
@@ -74,15 +78,14 @@
       height: 100%;
       padding: 0 14px;
       background: transparent;
-      color: var(--clr-text);
+      color: var(--color-text);
       border: none;
       outline: none;
       font-size: 16px;
-      box-sizing: border-box;
     }
 
     .input-box::placeholder {
-      color: var(--clr-text);
+      color: var(--color-text);
       opacity: 0.7;
     }
 
@@ -93,15 +96,12 @@
       transform: translateX(-50%);
       width: 500px;
       height: 190px;
-      box-sizing: border-box;
-      background-color: rgba(var(--clr-bg-rgb), 0.67);
+      background-color: var(--color-bg-card);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      border: 2px solid var(--clr-border);
+      border: 2px solid var(--color-accent);
       border-radius: 16px;
-      color: var(--clr-text);
-      user-select: none;
-      -webkit-user-select: none;
+      color: var(--color-text);
       overflow: hidden;
     }
 
@@ -111,7 +111,7 @@
       left: 18px;
       font-size: 17px;
       line-height: 20px;
-      color: var(--clr-text);
+      color: var(--color-text);
     }
 
     .weather-data {
@@ -145,7 +145,7 @@
     .weather-value {
       font-size: 16px;
       line-height: 22px;
-      color: var(--clr-text);
+      color: var(--color-text);
       white-space: nowrap;
     }
 
@@ -153,16 +153,15 @@
       position: relative;
       width: 64px;
       height: 64px;
-      border: 2px solid var(--clr-border);
+      border: 2px solid var(--color-accent);
       border-radius: 50%;
-      box-sizing: border-box;
     }
 
     .compass span {
       position: absolute;
       font-size: 10px;
       font-weight: 500;
-      color: var(--clr-border);
+      color: var(--color-accent);
     }
 
     .compass-n { top: 3px; left: 50%; transform: translateX(-50%); }
@@ -174,36 +173,26 @@
       position: absolute;
       left: 50%;
       top: 50%;
+      width: 2px;
       transform-origin: 50% 100%;
       transform: translate(-50%, -100%) rotate(0deg);
-      background-color: var(--clr-border);
+      background-color: var(--color-accent);
       border-radius: 2px;
     }
 
-    .compass-pointer { height: 23px; }
-    .pressure-pointer { height: 20px; }
-
-    .compass-pointer::before, .pressure-pointer::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
+    .compass-pointer {
+      height: 23px;
     }
 
     .compass-pointer::before {
+      content: "";
+      position: absolute;
       top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-bottom: 8px solid var(--clr-border);
-    }
-
-    .pressure-pointer::before {
-      top: -5px;
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-bottom: 7px solid var(--clr-border);
+      border-bottom: 8px solid var(--color-accent);
     }
 
     .compass-center, .pressure-center {
@@ -213,7 +202,7 @@
       width: 6px;
       height: 6px;
       transform: translate(-50%, -50%);
-      background-color: var(--clr-border);
+      background-color: var(--color-accent);
       border-radius: 50%;
     }
 
@@ -224,8 +213,23 @@
       right: 10px;
       bottom: 10px;
       height: 30px;
-      border-top: 2px solid var(--clr-border);
+      border-top: 2px solid var(--color-accent);
       border-radius: 50%;
+    }
+
+    .pressure-pointer {
+      height: 20px;
+    }
+
+    .pressure-pointer::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 7px solid var(--color-accent);
     }
 
     @media (max-width: 768px) {
@@ -236,38 +240,47 @@
       }
 
       .foreground {
-        top: 12%;
-        transform: translateX(-50%);
-        width: 42%;
+        top: 12% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 42% !important;
         max-width: 220px;
+        height: auto !important;
       }
 
       .search-box {
-        top: 52%;
-        width: calc(100% - 32px);
-        max-width: 540px;
-        height: 56px;
-        border-radius: 12px;
+        position: absolute !important;
+        left: 50% !important;
+        top: 52% !important;
+        transform: translate(-50%, -50%) !important;
+        width: calc(100% - 32px) !important;
+        max-width: 540px !important;
+        height: 56px !important;
+        border-radius: 12px !important;
         padding-right: 12px;
       }
 
       .search-icon {
-        width: 24px;
-        height: 24px;
-        margin-left: 12px;
-        margin-right: 8px;
+        width: 24px !important;
+        height: 24px !important;
+        margin-left: 12px !important;
+        margin-right: 8px !important;
       }
 
       .divider {
-        height: 22px;
+        width: 2px !important;
+        height: 22px !important;
         margin-right: 8px;
       }
 
       .input-box {
-        padding: 0 10px;
+        font-size: 16px !important;
+        padding: 0 10px !important;
+        height: 100% !important;
       }
 
       .input-box::placeholder {
+        font-size: 16px;
         opacity: 0.85;
       }
 
@@ -288,6 +301,7 @@
       .weather-location {
         top: 12px;
         left: 16px;
+        font-size: 17px;
       }
 
       .weather-data {
@@ -314,15 +328,15 @@
 </head>
 <body>
 
-  <img class="foreground" src="brave_color_darkbackground.webp" alt="" oncontextmenu="return false;">
+  <img class="foreground no-select" src="brave_color_darkbackground.webp" alt="" oncontextmenu="return false;">
 
   <div class="search-box">
-    <img class="search-icon" src="startpage-logomark.webp" alt="" oncontextmenu="return false;">
+    <img class="search-icon no-select" src="startpage-logomark.webp" alt="" oncontextmenu="return false;">
     <div class="divider"></div>
     <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus>
   </div>
 
-  <div class="weather-card">
+  <div class="weather-card no-select">
     <div class="weather-location" id="weather-location">Loading…</div>
 
     <div class="weather-data">
@@ -353,35 +367,41 @@
   </div>
 
   <script>
-    const searchBox = document.getElementById("search");
-
-    searchBox.addEventListener("keydown", e => {
-      if (e.key !== "Enter") return;
-      const query = searchBox.value.trim();
-      if (query) window.location.href = `https://www.startpage.com/do/search?q=${encodeURIComponent(query)}&segment=startpage.brave`;
-    });
-
+    const $ = (id) => document.getElementById(id);
+    const searchBox = $("search");
     const DIRECTIONS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
+    searchBox.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const query = searchBox.value.trim();
+        if (query) {
+          window.location.href = `https://www.startpage.com/do/search?q=${encodeURIComponent(query)}&segment=startpage.brave`;
+        }
+      }
+    });
+
     (async () => {
-      const locationEl = document.getElementById("weather-location");
-      const windEl = document.getElementById("wind-value");
-      const pressureEl = document.getElementById("pressure-value");
+      const locationEl = $("weather-location");
+      const windEl = $("wind-value");
+      const pressureEl = $("pressure-value");
+      const compassPtr = $("compass-pointer");
+      const pressurePtr = document.querySelector(".pressure-pointer");
 
       try {
         const res = await fetch("weather.json");
-        if (!res.ok) throw new Error("無法取得 weather.json");
+        if (!res.ok) throw new Error();
         const data = await res.json();
 
         locationEl.textContent = data.location;
 
         const windDir = Number(data.wind_direction_10m);
-        windEl.textContent = `${windDir}° · ${DIRECTIONS[Math.round(windDir / 22.5) % 16]}`;
-        document.getElementById("compass-pointer").style.transform = `translate(-50%, -100%) rotate(${windDir}deg)`;
+        const dirIndex = Math.round(windDir / 22.5) % 16;
+        windEl.textContent = `${windDir}° · ${DIRECTIONS[dirIndex]}`;
+        compassPtr.style.transform = `translate(-50%, -100%) rotate(${windDir}deg)`;
 
         const pressure = Number(data.surface_pressure);
         const pressureAngle = -90 + ((pressure - 950) / 100) * 180;
-        document.querySelector(".pressure-pointer").style.transform = `translate(-50%, -100%) rotate(${pressureAngle}deg)`;
+        pressurePtr.style.transform = `translate(-50%, -100%) rotate(${pressureAngle}deg)`;
         pressureEl.textContent = `${pressure.toFixed(1)} hPa`;
       } catch (err) {
         console.error(err);
