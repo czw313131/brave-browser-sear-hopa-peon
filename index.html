@@ -8,16 +8,10 @@
 
   <style>
     :root {
-      --color-bg-box: #414559;
-      --color-bg-card: rgba(65, 69, 89, 0.67);
-      --color-accent: #f2d5cf;
-      --color-text: #c6d0f5;
-      --radius-main: 16px;
-      --radius-mobile: 12px;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
+      --clr-border: #f2d5cf;
+      --clr-text: #c6d0f5;
+      --clr-bg: #414559;
+      --clr-bg-rgb: 65, 69, 89;
     }
 
     html, body {
@@ -31,18 +25,13 @@
       overflow: hidden;
     }
 
-    /* 停用選取與拖拽 */
-    .unselectable {
-      -webkit-user-drag: none;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
     .foreground {
       position: absolute;
       left: 50%;
       top: 33.33%;
       transform: translate(-50%, -50%);
+      -webkit-user-drag: none;
+      user-select: none;
       width: 15%;
       height: auto;
     }
@@ -56,9 +45,10 @@
       height: 50px;
       display: flex;
       align-items: center;
-      background-color: var(--color-bg-box);
-      border: 2px solid var(--color-accent);
-      border-radius: var(--radius-main);
+      background-color: var(--clr-bg);
+      border: 2px solid var(--clr-border);
+      border-radius: 16px;
+      box-sizing: border-box;
       overflow: hidden;
     }
 
@@ -66,6 +56,8 @@
       width: 28px;
       height: 28px;
       object-fit: contain;
+      -webkit-user-drag: none;
+      user-select: none;
       margin: 0 14px;
       flex-shrink: 0;
     }
@@ -73,7 +65,7 @@
     .divider {
       width: 2px;
       height: 28px;
-      background-color: var(--color-accent);
+      background-color: var(--clr-border);
       flex-shrink: 0;
     }
 
@@ -82,14 +74,15 @@
       height: 100%;
       padding: 0 14px;
       background: transparent;
-      color: var(--color-text);
+      color: var(--clr-text);
       border: none;
       outline: none;
       font-size: 16px;
+      box-sizing: border-box;
     }
 
     .input-box::placeholder {
-      color: var(--color-text);
+      color: var(--clr-text);
       opacity: 0.7;
     }
 
@@ -100,12 +93,15 @@
       transform: translateX(-50%);
       width: 500px;
       height: 190px;
-      background-color: var(--color-bg-card);
+      box-sizing: border-box;
+      background-color: rgba(var(--clr-bg-rgb), 0.67);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      border: 2px solid var(--color-accent);
-      border-radius: var(--radius-main);
-      color: var(--color-text);
+      border: 2px solid var(--clr-border);
+      border-radius: 16px;
+      color: var(--clr-text);
+      user-select: none;
+      -webkit-user-select: none;
       overflow: hidden;
     }
 
@@ -115,7 +111,7 @@
       left: 18px;
       font-size: 17px;
       line-height: 20px;
-      color: var(--color-text);
+      color: var(--clr-text);
     }
 
     .weather-data {
@@ -149,7 +145,7 @@
     .weather-value {
       font-size: 16px;
       line-height: 22px;
-      color: var(--color-text);
+      color: var(--clr-text);
       white-space: nowrap;
     }
 
@@ -157,15 +153,16 @@
       position: relative;
       width: 64px;
       height: 64px;
-      border: 2px solid var(--color-accent);
+      border: 2px solid var(--clr-border);
       border-radius: 50%;
+      box-sizing: border-box;
     }
 
     .compass span {
       position: absolute;
       font-size: 10px;
       font-weight: 500;
-      color: var(--color-accent);
+      color: var(--clr-border);
     }
 
     .compass-n { top: 3px; left: 50%; transform: translateX(-50%); }
@@ -177,26 +174,36 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 2px;
       transform-origin: 50% 100%;
       transform: translate(-50%, -100%) rotate(0deg);
-      background-color: var(--color-accent);
+      background-color: var(--clr-border);
       border-radius: 2px;
     }
 
-    .compass-pointer {
-      height: 23px;
+    .compass-pointer { height: 23px; }
+    .pressure-pointer { height: 20px; }
+
+    .compass-pointer::before, .pressure-pointer::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
     }
 
     .compass-pointer::before {
-      content: "";
-      position: absolute;
       top: -6px;
-      left: 50%;
-      transform: translateX(-50%);
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-bottom: 8px solid var(--color-accent);
+      border-bottom: 8px solid var(--clr-border);
+    }
+
+    .pressure-pointer::before {
+      top: -5px;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 7px solid var(--clr-border);
     }
 
     .compass-center, .pressure-center {
@@ -206,7 +213,7 @@
       width: 6px;
       height: 6px;
       transform: translate(-50%, -50%);
-      background-color: var(--color-accent);
+      background-color: var(--clr-border);
       border-radius: 50%;
     }
 
@@ -217,26 +224,10 @@
       right: 10px;
       bottom: 10px;
       height: 30px;
-      border-top: 2px solid var(--color-accent);
+      border-top: 2px solid var(--clr-border);
       border-radius: 50%;
     }
 
-    .pressure-pointer {
-      height: 20px;
-    }
-
-    .pressure-pointer::before {
-      content: "";
-      position: absolute;
-      top: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-bottom: 7px solid var(--color-accent);
-    }
-
-    /* 行動裝置響應式調整 */
     @media (max-width: 768px) {
       body {
         overflow: auto;
@@ -246,21 +237,17 @@
 
       .foreground {
         top: 12%;
-        left: 50%;
         transform: translateX(-50%);
         width: 42%;
         max-width: 220px;
-        height: auto;
       }
 
       .search-box {
-        left: 50%;
         top: 52%;
-        transform: translate(-50%, -50%);
         width: calc(100% - 32px);
         max-width: 540px;
         height: 56px;
-        border-radius: var(--radius-mobile);
+        border-radius: 12px;
         padding-right: 12px;
       }
 
@@ -284,8 +271,10 @@
         opacity: 0.85;
       }
 
-      img {
-        -webkit-tap-highlight-color: transparent;
+      img[oncontextmenu] {
+        -webkit-user-drag: none;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
 
       .weather-card {
@@ -293,7 +282,7 @@
         max-width: 540px;
         height: 180px;
         top: calc(76% - 76px);
-        border-radius: var(--radius-mobile);
+        border-radius: 12px;
       }
 
       .weather-location {
@@ -325,15 +314,15 @@
 </head>
 <body>
 
-  <img class="foreground unselectable" src="brave_color_darkbackground.webp" alt="Logo">
+  <img class="foreground" src="brave_color_darkbackground.webp" alt="" oncontextmenu="return false;">
 
   <div class="search-box">
-    <img class="search-icon unselectable" src="startpage-logomark.webp" alt="Search Icon">
+    <img class="search-icon" src="startpage-logomark.webp" alt="" oncontextmenu="return false;">
     <div class="divider"></div>
-    <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus autocomplete="off">
+    <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus>
   </div>
 
-  <div class="weather-card unselectable">
+  <div class="weather-card">
     <div class="weather-location" id="weather-location">Loading…</div>
 
     <div class="weather-data">
@@ -354,7 +343,7 @@
       <div class="weather-item">
         <div class="weather-icon">
           <div class="pressure-icon">
-            <div class="pressure-pointer" id="pressure-pointer"></div>
+            <div class="pressure-pointer"></div>
             <div class="pressure-center"></div>
           </div>
         </div>
@@ -364,64 +353,43 @@
   </div>
 
   <script>
+    const searchBox = document.getElementById("search");
+
+    searchBox.addEventListener("keydown", e => {
+      if (e.key !== "Enter") return;
+      const query = searchBox.value.trim();
+      if (query) window.location.href = `https://www.startpage.com/do/search?q=${encodeURIComponent(query)}&segment=startpage.brave`;
+    });
+
     const DIRECTIONS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
-    // 快取 DOM 元素
-    const els = {
-      search: document.getElementById("search"),
-      location: document.getElementById("weather-location"),
-      wind: document.getElementById("wind-value"),
-      compassPointer: document.getElementById("compass-pointer"),
-      pressure: document.getElementById("pressure-value"),
-      pressurePointer: document.getElementById("pressure-pointer")
-    };
+    (async () => {
+      const locationEl = document.getElementById("weather-location");
+      const windEl = document.getElementById("wind-value");
+      const pressureEl = document.getElementById("pressure-value");
 
-    // 禁用圖片右鍵選單 (替代內聯事件)
-    document.querySelectorAll("img").forEach(img => {
-      img.addEventListener("contextmenu", e => e.preventDefault());
-    });
-
-    // 搜尋功能處理
-    els.search.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        const query = els.search.value.trim();
-        if (query) {
-          const url = new URL("https://www.startpage.com/do/search");
-          url.searchParams.set("q", query);
-          url.searchParams.set("segment", "startpage.brave");
-          window.location.href = url.toString();
-        }
-      }
-    });
-
-    // 取得天氣資料
-    async function fetchWeather() {
       try {
         const res = await fetch("weather.json");
         if (!res.ok) throw new Error("無法取得 weather.json");
-        
         const data = await res.json();
 
-        els.location.textContent = data.location;
+        locationEl.textContent = data.location;
 
         const windDir = Number(data.wind_direction_10m);
-        const dirIndex = Math.round(windDir / 22.5) % 16;
-        els.wind.textContent = `${windDir}° · ${DIRECTIONS[dirIndex]}`;
-        els.compassPointer.style.transform = `translate(-50%, -100%) rotate(${windDir}deg)`;
+        windEl.textContent = `${windDir}° · ${DIRECTIONS[Math.round(windDir / 22.5) % 16]}`;
+        document.getElementById("compass-pointer").style.transform = `translate(-50%, -100%) rotate(${windDir}deg)`;
 
         const pressure = Number(data.surface_pressure);
         const pressureAngle = -90 + ((pressure - 950) / 100) * 180;
-        els.pressurePointer.style.transform = `translate(-50%, -100%) rotate(${pressureAngle}deg)`;
-        els.pressure.textContent = `${pressure.toFixed(1)} hPa`;
+        document.querySelector(".pressure-pointer").style.transform = `translate(-50%, -100%) rotate(${pressureAngle}deg)`;
+        pressureEl.textContent = `${pressure.toFixed(1)} hPa`;
       } catch (err) {
         console.error(err);
-        els.location.textContent = "Failed to load weather data";
-        els.wind.textContent = "—";
-        els.pressure.textContent = "—";
+        locationEl.textContent = "Failed to load weather data";
+        windEl.textContent = "—";
+        pressureEl.textContent = "—";
       }
-    }
-
-    fetchWeather();
+    })();
   </script>
 
 </body>
