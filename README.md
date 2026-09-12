@@ -30,11 +30,6 @@ One-click access to your favorite platforms:
 - **Smooth Animations**: Hover effects and transitions for a polished feel
 - **Custom Branding**: Brave logo and Startpage branding integrated seamlessly
 
-### 📱 Mobile-Friendly
-- Automatically adapts layout for smaller screens
-- Touch-optimized shortcut cards with scaled-down weather widgets
-- Scrollable design for mobile viewing
-
 ## 🎯 Perfect For
 Users who want a minimalist, functional new tab page that combines:
 - Privacy-focused search
