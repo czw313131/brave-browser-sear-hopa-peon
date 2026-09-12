@@ -1,44 +1,42 @@
-# 新搜尋分頁
+# New Search Tab
 
-一個為 Brave 瀏覽器客製化的搜尋分頁，整合 Startpage 搜尋引擎與即時天氣資訊。
+A beautiful, customized new tab page for Brave Browser featuring a sleek search interface with real-time weather and shortcuts.
 
-![gallery](https://i.meee.com.tw/P11hjo2.webp)
+## ✨ Features
 
-## 功能特色
+### 🔍 Search Integration
+- **Startpage Search**: Fast, privacy-focused search directly from your new tab
+- **Quick Search**: Simply type and press Enter to search
 
-### 🔍 搜尋框
-- 以 Startpage 搜尋引擎為後端
-- 支援快速搜尋（按 Enter 鍵即可）
-- 響應式設計，適配電腦和手機
+### 🌤️ Real-Time Weather Display
+- **Wind Direction Compass**: Visual compass showing wind direction with cardinal directions (N, E, S, W)
+- **Atmospheric Pressure Gauge**: Real-time pressure reading in hPa with visual gauge indicator
+- **Location Display**: Shows your current location information
+- Automatically fetches weather data from `weather.json`
 
-### 🌤️ 天氣卡片
-實時顯示天氣相關資訊：
-- **地點**：顯示當前位置
-- **風向指南針**：以視覺化指針呈現風向角度（0°～360°）
-- **氣壓表**：動態指針顯示大氣壓力（hPa）
+### 🔗 Quick Access Shortcuts
+One-click access to your favorite platforms:
+- **YouTube** (YT)
+- **Instagram** (IG)
+- **Threads** (脆)
+- **X/Twitter** (X)
+- **Discord** (DC)
 
-### 🎨 設計特點
-- 深色主題配色
-- 優雅的玻璃態效果
-- 全面支援觸控裝置
-- 流暢的響應式佈局
+### 🎨 Design Highlights
+- **Modern Dark Theme**: Sleek color palette with accent colors for visual appeal
+- **Glass Morphism**: Frosted glass effect on cards with backdrop blur
+- **Responsive Layout**: Fully optimized for both desktop and mobile devices
+- **Smooth Animations**: Hover effects and transitions for a polished feel
+- **Custom Branding**: Brave logo and Startpage branding integrated seamlessly
 
-## 使用方式
+### 📱 Mobile-Friendly
+- Automatically adapts layout for smaller screens
+- Touch-optimized shortcut cards with scaled-down weather widgets
+- Scrollable design for mobile viewing
 
-1. 將 `index.html` 設為瀏覽器首頁
-2. 確保 `weather.json` 在同一目錄
-3. 在搜尋框中輸入關鍵字並按 Enter 開始搜尋
-
-## 文件說明
-
-- `index.html` - 主頁面
-- `weather.json` - 天氣資料（包含位置、風向、氣壓等）
-- `LICENSE` - 使用授權
-
-## 必需資源
-
-頁面依賴以下圖片資源（需自行提供）：
-- `brave_color_darkbackground.webp` - 前景 Logo
-- `startpage-logomark.webp` - 搜尋框圖標
-- `lion (1).webp` - 頁面 Icon
-- `2026_06_19_0lw_Kleki (1).webp` - 背景圖片
+## 🎯 Perfect For
+Users who want a minimalist, functional new tab page that combines:
+- Privacy-focused search
+- At-a-glance weather information
+- Quick access to frequently visited websites
+- A visually pleasing browsing experience
