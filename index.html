@@ -34,6 +34,7 @@
       user-select: none;
     }
 
+    /* Logo - 位置保持不變 */
     .foreground {
       position: absolute;
       left: 50%;
@@ -43,6 +44,7 @@
       height: auto;
     }
 
+    /* 搜尋框 - 位置保持不變 (高度 50px，底部在 50% + 25px) */
     .search-box {
       position: absolute;
       left: 50%;
@@ -89,10 +91,63 @@
       opacity: 0.7;
     }
 
+    /* 捷徑區塊 - 位於搜尋框與天氣卡片之間 */
+    .shortcuts-container {
+      position: absolute;
+      left: 50%;
+      top: calc(50% + 49px);
+      transform: translateX(-50%);
+      width: 500px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .shortcut-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--color-text);
+      transition: transform 0.2s ease;
+    }
+
+    .shortcut-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .shortcut-icon-wrapper {
+      width: 60px;
+      height: 60px;
+      background-color: var(--color-bg-card);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 2px solid var(--color-accent);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .shortcut-icon-wrapper img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .shortcut-label {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 天氣卡片 - 位置順延下移 */
     .weather-card {
       position: absolute;
       left: 50%;
-      top: calc(75% - 82.5px);
+      top: calc(50% + 161px);
       transform: translateX(-50%);
       width: 500px;
       height: 190px;
@@ -232,6 +287,7 @@
       border-bottom: 7px solid var(--color-accent);
     }
 
+    /* 手機版響應式樣式 */
     @media (max-width: 768px) {
       body {
         overflow: auto;
@@ -251,7 +307,7 @@
       .search-box {
         position: absolute !important;
         left: 50% !important;
-        top: 52% !important;
+        top: 45% !important;
         transform: translate(-50%, -50%) !important;
         width: calc(100% - 32px) !important;
         max-width: 540px !important;
@@ -290,11 +346,28 @@
         -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
 
+      .shortcuts-container {
+        width: calc(100% - 32px);
+        max-width: 540px;
+        top: calc(45% + 48px);
+      }
+
+      .shortcut-icon-wrapper {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+      }
+
+      .shortcut-icon-wrapper img {
+        width: 30px;
+        height: 30px;
+      }
+
       .weather-card {
         width: calc(100% - 32px);
         max-width: 540px;
         height: 180px;
-        top: calc(76% - 76px);
+        top: calc(45% + 154px);
         border-radius: 12px;
       }
 
@@ -334,6 +407,44 @@
     <img class="search-icon no-select" src="startpage-logomark.webp" alt="" oncontextmenu="return false;">
     <div class="divider"></div>
     <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus>
+  </div>
+
+  <!-- 寫死的 5 個捷徑 -->
+  <div class="shortcuts-container no-select">
+    <a href="https://www.youtube.com" class="shortcut-item">
+      <div class="shortcut-icon-wrapper">
+        <img src="YT.webp" alt="YT" oncontextmenu="return false;">
+      </div>
+      <span class="shortcut-label">YT</span>
+    </a>
+
+    <a href="https://www.instagram.com" class="shortcut-item">
+      <div class="shortcut-icon-wrapper">
+        <img src="IG.webp" alt="IG" oncontextmenu="return false;">
+      </div>
+      <span class="shortcut-label">IG</span>
+    </a>
+
+    <a href="https://www.threads.com" class="shortcut-item">
+      <div class="shortcut-icon-wrapper">
+        <img src="THREADS.webp" alt="脆" oncontextmenu="return false;">
+      </div>
+      <span class="shortcut-label">脆</span>
+    </a>
+
+    <a href="https://x.com/home" class="shortcut-item">
+      <div class="shortcut-icon-wrapper">
+        <img src="X.webp" alt="X" oncontextmenu="return false;">
+      </div>
+      <span class="shortcut-label">X</span>
+    </a>
+
+    <a href="https://discord.com/channels/@me" class="shortcut-item">
+      <div class="shortcut-icon-wrapper">
+        <img src="DC.webp" alt="DC" oncontextmenu="return false;">
+      </div>
+      <span class="shortcut-label">DC</span>
+    </a>
   </div>
 
   <div class="weather-card no-select">
