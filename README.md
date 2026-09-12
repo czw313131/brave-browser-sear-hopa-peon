@@ -20,6 +20,7 @@ One-click access to your favorite platforms:
 - **Instagram** (IG)
 - **Threads** (脆)
 - **X/Twitter** (X)
+- **Gemini** (GGM)
 - **Discord** (DC)
 
 ### 🎨 Design Highlights
