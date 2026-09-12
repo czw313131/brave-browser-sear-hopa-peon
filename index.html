@@ -7,6 +7,19 @@
   <link rel="icon" href="lion (1).webp">
 
   <style>
+    :root {
+      --color-bg-box: #414559;
+      --color-bg-card: rgba(65, 69, 89, 0.67);
+      --color-accent: #f2d5cf;
+      --color-text: #c6d0f5;
+      --radius-main: 16px;
+      --radius-mobile: 12px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     html, body {
       width: 100%;
       height: 100%;
@@ -18,13 +31,18 @@
       overflow: hidden;
     }
 
+    /* 停用選取與拖拽 */
+    .unselectable {
+      -webkit-user-drag: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
     .foreground {
       position: absolute;
       left: 50%;
       top: 33.33%;
       transform: translate(-50%, -50%);
-      -webkit-user-drag: none;
-      user-select: none;
       width: 15%;
       height: auto;
     }
@@ -38,10 +56,9 @@
       height: 50px;
       display: flex;
       align-items: center;
-      background-color: #414559;
-      border: 2px solid #f2d5cf;
-      border-radius: 16px;
-      box-sizing: border-box;
+      background-color: var(--color-bg-box);
+      border: 2px solid var(--color-accent);
+      border-radius: var(--radius-main);
       overflow: hidden;
     }
 
@@ -49,8 +66,6 @@
       width: 28px;
       height: 28px;
       object-fit: contain;
-      -webkit-user-drag: none;
-      user-select: none;
       margin: 0 14px;
       flex-shrink: 0;
     }
@@ -58,7 +73,7 @@
     .divider {
       width: 2px;
       height: 28px;
-      background-color: #f2d5cf;
+      background-color: var(--color-accent);
       flex-shrink: 0;
     }
 
@@ -67,15 +82,14 @@
       height: 100%;
       padding: 0 14px;
       background: transparent;
-      color: #c6d0f5;
+      color: var(--color-text);
       border: none;
       outline: none;
       font-size: 16px;
-      box-sizing: border-box;
     }
 
     .input-box::placeholder {
-      color: #c6d0f5;
+      color: var(--color-text);
       opacity: 0.7;
     }
 
@@ -86,15 +100,12 @@
       transform: translateX(-50%);
       width: 500px;
       height: 190px;
-      box-sizing: border-box;
-      background-color: rgba(65, 69, 89, 0.67);
+      background-color: var(--color-bg-card);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      border: 2px solid #f2d5cf;
-      border-radius: 16px;
-      color: #c6d0f5;
-      user-select: none;
-      -webkit-user-select: none;
+      border: 2px solid var(--color-accent);
+      border-radius: var(--radius-main);
+      color: var(--color-text);
       overflow: hidden;
     }
 
@@ -104,7 +115,7 @@
       left: 18px;
       font-size: 17px;
       line-height: 20px;
-      color: #c6d0f5;
+      color: var(--color-text);
     }
 
     .weather-data {
@@ -138,7 +149,7 @@
     .weather-value {
       font-size: 16px;
       line-height: 22px;
-      color: #c6d0f5;
+      color: var(--color-text);
       white-space: nowrap;
     }
 
@@ -146,16 +157,15 @@
       position: relative;
       width: 64px;
       height: 64px;
-      border: 2px solid #f2d5cf;
+      border: 2px solid var(--color-accent);
       border-radius: 50%;
-      box-sizing: border-box;
     }
 
     .compass span {
       position: absolute;
       font-size: 10px;
       font-weight: 500;
-      color: #f2d5cf;
+      color: var(--color-accent);
     }
 
     .compass-n { top: 3px; left: 50%; transform: translateX(-50%); }
@@ -163,16 +173,19 @@
     .compass-s { bottom: 3px; left: 50%; transform: translateX(-50%); }
     .compass-w { left: 4px; top: 50%; transform: translateY(-50%); }
 
-    .compass-pointer {
+    .compass-pointer, .pressure-pointer {
       position: absolute;
       left: 50%;
       top: 50%;
       width: 2px;
-      height: 23px;
       transform-origin: 50% 100%;
       transform: translate(-50%, -100%) rotate(0deg);
-      background-color: #f2d5cf;
+      background-color: var(--color-accent);
       border-radius: 2px;
+    }
+
+    .compass-pointer {
+      height: 23px;
     }
 
     .compass-pointer::before {
@@ -181,11 +194,9 @@
       top: -6px;
       left: 50%;
       transform: translateX(-50%);
-      width: 0;
-      height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-bottom: 8px solid #f2d5cf;
+      border-bottom: 8px solid var(--color-accent);
     }
 
     .compass-center, .pressure-center {
@@ -195,7 +206,7 @@
       width: 6px;
       height: 6px;
       transform: translate(-50%, -50%);
-      background-color: #f2d5cf;
+      background-color: var(--color-accent);
       border-radius: 50%;
     }
 
@@ -206,20 +217,12 @@
       right: 10px;
       bottom: 10px;
       height: 30px;
-      border-top: 2px solid #f2d5cf;
+      border-top: 2px solid var(--color-accent);
       border-radius: 50%;
     }
 
     .pressure-pointer {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 2px;
       height: 20px;
-      transform-origin: 50% 100%;
-      transform: translate(-50%, -100%) rotate(0deg);
-      background-color: #f2d5cf;
-      border-radius: 2px;
     }
 
     .pressure-pointer::before {
@@ -228,13 +231,12 @@
       top: -5px;
       left: 50%;
       transform: translateX(-50%);
-      width: 0;
-      height: 0;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
-      border-bottom: 7px solid #f2d5cf;
+      border-bottom: 7px solid var(--color-accent);
     }
 
+    /* 行動裝置響應式調整 */
     @media (max-width: 768px) {
       body {
         overflow: auto;
@@ -243,55 +245,47 @@
       }
 
       .foreground {
-        top: 12% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: 42% !important;
+        top: 12%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 42%;
         max-width: 220px;
-        height: auto !important;
+        height: auto;
       }
 
       .search-box {
-        position: absolute !important;
-        left: 50% !important;
-        top: 52% !important;
-        transform: translate(-50%, -50%) !important;
-        width: calc(100% - 32px) !important;
-        max-width: 540px !important;
-        height: 56px !important;
-        border-radius: 12px !important;
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 32px);
+        max-width: 540px;
+        height: 56px;
+        border-radius: var(--radius-mobile);
         padding-right: 12px;
-        box-sizing: border-box;
       }
 
       .search-icon {
-        width: 24px !important;
-        height: 24px !important;
-        margin-left: 12px !important;
-        margin-right: 8px !important;
+        width: 24px;
+        height: 24px;
+        margin-left: 12px;
+        margin-right: 8px;
       }
 
       .divider {
-        width: 2px !important;
-        height: 22px !important;
+        height: 22px;
         margin-right: 8px;
       }
 
       .input-box {
-        font-size: 16px !important;
-        padding: 0 10px !important;
-        height: 100% !important;
+        padding: 0 10px;
       }
 
       .input-box::placeholder {
-        font-size: 16px;
         opacity: 0.85;
       }
 
-      img[oncontextmenu] {
-        -webkit-user-drag: none;
-        user-select: none;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+      img {
+        -webkit-tap-highlight-color: transparent;
       }
 
       .weather-card {
@@ -299,13 +293,12 @@
         max-width: 540px;
         height: 180px;
         top: calc(76% - 76px);
-        border-radius: 12px;
+        border-radius: var(--radius-mobile);
       }
 
       .weather-location {
         top: 12px;
         left: 16px;
-        font-size: 17px;
       }
 
       .weather-data {
@@ -332,15 +325,15 @@
 </head>
 <body>
 
-  <img class="foreground" src="brave_color_darkbackground.webp" alt="" oncontextmenu="return false;">
+  <img class="foreground unselectable" src="brave_color_darkbackground.webp" alt="Logo">
 
   <div class="search-box">
-    <img class="search-icon" src="startpage-logomark.webp" alt="" oncontextmenu="return false;">
+    <img class="search-icon unselectable" src="startpage-logomark.webp" alt="Search Icon">
     <div class="divider"></div>
-    <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus>
+    <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus autocomplete="off">
   </div>
 
-  <div class="weather-card">
+  <div class="weather-card unselectable">
     <div class="weather-location" id="weather-location">Loading…</div>
 
     <div class="weather-data">
@@ -361,7 +354,7 @@
       <div class="weather-item">
         <div class="weather-icon">
           <div class="pressure-icon">
-            <div class="pressure-pointer"></div>
+            <div class="pressure-pointer" id="pressure-pointer"></div>
             <div class="pressure-center"></div>
           </div>
         </div>
@@ -371,43 +364,64 @@
   </div>
 
   <script>
-    const searchBox = document.getElementById("search");
+    const DIRECTIONS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
-    searchBox.addEventListener("keydown", (e) => {
+    // 快取 DOM 元素
+    const els = {
+      search: document.getElementById("search"),
+      location: document.getElementById("weather-location"),
+      wind: document.getElementById("wind-value"),
+      compassPointer: document.getElementById("compass-pointer"),
+      pressure: document.getElementById("pressure-value"),
+      pressurePointer: document.getElementById("pressure-pointer")
+    };
+
+    // 禁用圖片右鍵選單 (替代內聯事件)
+    document.querySelectorAll("img").forEach(img => {
+      img.addEventListener("contextmenu", e => e.preventDefault());
+    });
+
+    // 搜尋功能處理
+    els.search.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        const query = searchBox.value.trim();
+        const query = els.search.value.trim();
         if (query) {
-          window.location.href = `https://www.startpage.com/do/search?q=${encodeURIComponent(query)}&segment=startpage.brave`;
+          const url = new URL("https://www.startpage.com/do/search");
+          url.searchParams.set("q", query);
+          url.searchParams.set("segment", "startpage.brave");
+          window.location.href = url.toString();
         }
       }
     });
 
-    const DIRECTIONS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-
-    fetch("weather.json")
-      .then(res => {
+    // 取得天氣資料
+    async function fetchWeather() {
+      try {
+        const res = await fetch("weather.json");
         if (!res.ok) throw new Error("無法取得 weather.json");
-        return res.json();
-      })
-      .then(data => {
-        document.getElementById("weather-location").textContent = data.location;
+        
+        const data = await res.json();
+
+        els.location.textContent = data.location;
 
         const windDir = Number(data.wind_direction_10m);
         const dirIndex = Math.round(windDir / 22.5) % 16;
-        document.getElementById("wind-value").textContent = `${windDir}° · ${DIRECTIONS[dirIndex]}`;
-        document.getElementById("compass-pointer").style.transform = `translate(-50%, -100%) rotate(${windDir}deg)`;
+        els.wind.textContent = `${windDir}° · ${DIRECTIONS[dirIndex]}`;
+        els.compassPointer.style.transform = `translate(-50%, -100%) rotate(${windDir}deg)`;
 
         const pressure = Number(data.surface_pressure);
         const pressureAngle = -90 + ((pressure - 950) / 100) * 180;
-        document.querySelector(".pressure-pointer").style.transform = `translate(-50%, -100%) rotate(${pressureAngle}deg)`;
-        document.getElementById("pressure-value").textContent = `${pressure.toFixed(1)} hPa`;
-      })
-      .catch(err => {
+        els.pressurePointer.style.transform = `translate(-50%, -100%) rotate(${pressureAngle}deg)`;
+        els.pressure.textContent = `${pressure.toFixed(1)} hPa`;
+      } catch (err) {
         console.error(err);
-        document.getElementById("weather-location").textContent = "Failed to load weather data";
-        document.getElementById("wind-value").textContent = "—";
-        document.getElementById("pressure-value").textContent = "—";
-      });
+        els.location.textContent = "Failed to load weather data";
+        els.wind.textContent = "—";
+        els.pressure.textContent = "—";
+      }
+    }
+
+    fetchWeather();
   </script>
 
 </body>
