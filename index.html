@@ -43,18 +43,30 @@
       height: auto;
     }
 
-    .search-box {
+    .search-box, .shortcuts-container, .weather-card {
       position: absolute;
       left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
       width: 500px;
+      transform: translate(-50%, -50%);
+    }
+
+    .search-box, .shortcut-card, .weather-card {
+      border: 3px solid var(--color-accent);
+      border-radius: 15px;
+    }
+
+    .shortcut-card, .weather-card {
+      background-color: var(--color-bg-card);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .search-box {
+      top: 50%;
       height: 50px;
       display: flex;
       align-items: center;
       background-color: var(--color-box);
-      border: 2px solid var(--color-accent);
-      border-radius: 16px;
       overflow: hidden;
     }
 
@@ -89,13 +101,8 @@
       opacity: 0.7;
     }
 
-    /* 捷徑區域樣式 */
     .shortcuts-container {
-      position: absolute;
-      left: 50%;
       top: 64%;
-      transform: translate(-50%, -50%);
-      width: 500px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -115,13 +122,8 @@
     }
 
     .shortcut-card {
-      width: 68px;
-      height: 68px;
-      background-color: var(--color-bg-card);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 2px solid var(--color-accent);
-      border-radius: 16px;
+      width: 67px;
+      height: 67px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -129,8 +131,8 @@
     }
 
     .shortcut-icon {
-      width: 38px;
-      height: 38px;
+      width: 37px;
+      height: 37px;
       object-fit: contain;
     }
 
@@ -140,19 +142,9 @@
       white-space: nowrap;
     }
 
-    /* 天氣卡片樣式 */
     .weather-card {
-      position: absolute;
-      left: 50%;
       top: 80%;
-      transform: translate(-50%, -50%);
-      width: 500px;
       height: 150px;
-      background-color: var(--color-bg-card);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 2px solid var(--color-accent);
-      border-radius: 16px;
       color: var(--color-text);
       overflow: hidden;
     }
@@ -205,7 +197,7 @@
       position: relative;
       width: 54px;
       height: 54px;
-      border: 2px solid var(--color-accent);
+      border: 3px solid var(--color-accent);
       border-radius: 50%;
     }
 
@@ -265,7 +257,7 @@
       right: 8px;
       bottom: 8px;
       height: 24px;
-      border-top: 2px solid var(--color-accent);
+      border-top: 3px solid var(--color-accent);
       border-radius: 50%;
     }
 
@@ -292,66 +284,58 @@
       }
 
       .foreground {
-        top: 10% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: 42% !important;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 42%;
         max-width: 220px;
-        height: auto !important;
+        height: auto;
+      }
+
+      .search-box, .shortcuts-container, .weather-card {
+        width: calc(100% - 32px);
+        max-width: 540px;
       }
 
       .search-box {
-        position: absolute !important;
-        left: 50% !important;
-        top: 38% !important;
-        transform: translate(-50%, -50%) !important;
-        width: calc(100% - 32px) !important;
-        max-width: 540px !important;
-        height: 54px !important;
-        border-radius: 12px !important;
+        top: 38%;
+        height: 54px;
         padding-right: 12px;
       }
 
       .search-icon {
-        width: 24px !important;
-        height: 24px !important;
-        margin-left: 12px !important;
-        margin-right: 8px !important;
+        width: 24px;
+        height: 24px;
+        margin-left: 12px;
+        margin-right: 8px;
       }
 
       .divider {
-        width: 2px !important;
-        height: 22px !important;
+        height: 22px;
         margin-right: 8px;
       }
 
       .input-box {
-        font-size: 16px !important;
-        padding: 0 10px !important;
-        height: 100% !important;
+        padding: 0 10px;
       }
 
       .input-box::placeholder {
-        font-size: 16px;
         opacity: 0.85;
       }
 
       img[oncontextmenu] {
         -webkit-user-drag: none;
         user-select: none;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       }
 
       .shortcuts-container {
-        width: calc(100% - 32px);
-        max-width: 540px;
         top: 57%;
       }
 
       .shortcut-card {
         width: 54px;
         height: 54px;
-        border-radius: 12px;
       }
 
       .shortcut-icon {
@@ -364,11 +348,7 @@
       }
 
       .weather-card {
-        width: calc(100% - 32px);
-        max-width: 540px;
-        height: 150px;
         top: 78%;
-        border-radius: 12px;
       }
 
       .weather-location {
@@ -409,7 +389,6 @@
     <input type="text" class="input-box" placeholder="Search Startpage" id="search" autofocus>
   </div>
 
-  <!-- 捷徑區域 -->
   <div class="shortcuts-container no-select">
     <a href="https://www.youtube.com" class="shortcut-item">
       <div class="shortcut-card">
@@ -478,47 +457,32 @@
   </div>
 
   <script>
-    const $ = (id) => document.getElementById(id);
-    const searchBox = $("search");
-    const DIRECTIONS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    const $ = id => document.getElementById(id);
+    const DIRS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
-    searchBox.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        const query = searchBox.value.trim();
-        if (query) {
-          window.location.href = `https://www.startpage.com/do/search?q=${encodeURIComponent(query)}&segment=startpage.brave`;
-        }
+    $("search").addEventListener("keydown", e => {
+      const q = e.target.value.trim();
+      if (e.key === "Enter" && q) {
+        location.href = `https://www.startpage.com/do/search?q=${encodeURIComponent(q)}&segment=startpage.brave`;
       }
     });
 
     (async () => {
-      const locationEl = $("weather-location");
-      const windEl = $("wind-value");
-      const pressureEl = $("pressure-value");
-      const compassPtr = $("compass-pointer");
-      const pressurePtr = document.querySelector(".pressure-pointer");
-
+      const locEl = $("weather-location"), windEl = $("wind-value"), presEl = $("pressure-value");
       try {
         const res = await fetch("weather.json");
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-
-        locationEl.textContent = data.location;
-
-        const windDir = Number(data.wind_direction_10m);
-        const dirIndex = Math.round(windDir / 22.5) % 16;
-        windEl.textContent = `${windDir}° · ${DIRECTIONS[dirIndex]}`;
-        compassPtr.style.transform = `translate(-50%, -100%) rotate(${windDir}deg)`;
-
-        const pressure = Number(data.surface_pressure);
-        const pressureAngle = -90 + ((pressure - 950) / 100) * 180;
-        pressurePtr.style.transform = `translate(-50%, -100%) rotate(${pressureAngle}deg)`;
-        pressureEl.textContent = `${pressure.toFixed(1)} hPa`;
-      } catch (err) {
-        console.error(err);
-        locationEl.textContent = "Failed to load weather data";
-        windEl.textContent = "—";
-        pressureEl.textContent = "—";
+        if (!res.ok) throw 0;
+        const { location: loc, wind_direction_10m, surface_pressure } = await res.json();
+        locEl.textContent = loc;
+        const dir = +wind_direction_10m;
+        windEl.textContent = `${dir}° · ${DIRS[Math.round(dir / 22.5) % 16]}`;
+        $("compass-pointer").style.transform = `translate(-50%, -100%) rotate(${dir}deg)`;
+        const p = +surface_pressure;
+        document.querySelector(".pressure-pointer").style.transform = `translate(-50%, -100%) rotate(${-90 + ((p - 950) / 100) * 180}deg)`;
+        presEl.textContent = `${p.toFixed(1)} hPa`;
+      } catch {
+        locEl.textContent = "Failed to load weather data";
+        windEl.textContent = presEl.textContent = "—";
       }
     })();
   </script>
