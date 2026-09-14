@@ -22,7 +22,7 @@ jobs:
       - name: Get weather data from Open-Meteo
         run: |
           curl -fsSL \
-            "https://api.open-meteo.com/v1/forecast?latitude=22.65&longitude=120.28&current=wind_direction_10m,surface_pressure&timezone=Asia%2FTaipei" \
+            "https://api.open-meteo.com/v1/forecast?latitude=22.64&longitude=120.28&current=wind_direction_10m,surface_pressure&timezone=Asia%2FTaipei" \
             -o weather-api.json
 
       - name: Create weather.json
