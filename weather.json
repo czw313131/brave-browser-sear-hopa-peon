@@ -3,7 +3,7 @@
   "latitude": 22.65,
   "longitude": 120.28,
   "timezone": "Asia/Taipei",
-  "time": "2026-10-15T00:00",
-  "wind_direction_10m": 27,
-  "surface_pressure": 1016.0
+  "time": "2026-10-15T03:00",
+  "wind_direction_10m": 100,
+  "surface_pressure": 1014.6
 }
